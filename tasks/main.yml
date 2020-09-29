@@ -1,29 +1,34 @@
 ---
-- name: "Check for squid_exporter binary"
+- name: "Check for oxidized_exporter binary"
   stat:
-    path: "/usr/local/bin/squid_exporter"
+    path: "/usr/local/bin/oxidized_exporter"
   changed_when: false
-  register: squid_exporter_install
+  register: oxidized_exporter_install
 
-- when: not squid_exporter_install.stat.exists
+- when: not oxidized_exporter_install.stat.exists
   block:
-    - name: "Download squid_exporter..."
-      get_url:
-        url: '{{ squid_exporter_url }}'
-        dest: /usr/local/bin/
-        timeout: 120
-        mode: 0755
+    - name: "Install requierements"
+      package:
+        name: ["python3-requests", "python3-prometheus-client"]
+        state: present
 
-- name: "Create systemd for squid_exporter"
+- name: "Copy oxidized_exporter script"
   template:
-    src: squid_exporter.service
+    src: oxidized_exporter.j2
+    dest: /usr/local/bin/oxidized_exporter
+    mode: '0755'
+  notify: "restart oxidized_exporter"
+
+- name: "Create systemd for oxidized_exporter"
+  template:
+    src: oxidized_exporter.service
     dest: /etc/systemd/system/
     mode: '0644'
-  notify: "restart squid_exporter"
+  notify: "restart oxidized_exporter"
 
-- name: "Enable and Start squid_exporter.service"
+- name: "Enable and Start oxidized_exporter.service"
   systemd:
-    name: squid_exporter
+    name: oxidized_exporter
     state: started
     enabled: true
     daemon_reload: true
