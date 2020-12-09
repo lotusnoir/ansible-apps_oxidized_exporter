@@ -12,9 +12,9 @@ env:
     - MOLECULE_DISTRO: ubuntu1604
     - MOLECULE_DISTRO: debian10
     - MOLECULE_DISTRO: debian9
-    - MOLECULE_DISTRO: debian8
-    - MOLECULE_DISTRO: centos8
-    - MOLECULE_DISTRO: centos7
+#    - MOLECULE_DISTRO: debian8
+#    - MOLECULE_DISTRO: centos8
+#    - MOLECULE_DISTRO: centos7
 #    - MOLECULE_DISTRO: fedora33
 #    - MOLECULE_DISTRO: fedora32
 
