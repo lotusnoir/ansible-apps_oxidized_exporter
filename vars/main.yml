@@ -1,0 +1,4 @@
+---
+oxidized_packages:
+  - python3-requests
+  - python3-prometheus-client

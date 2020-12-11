@@ -1,8 +1,5 @@
 ---
 # Binary install
-oxidized_packages:
-  - python3-requests
-  - python3-prometheus-client
 oxidized_exporter_install_dir:    "/usr/local/bin"
 oxidized_exporter_force_install:  false
 
