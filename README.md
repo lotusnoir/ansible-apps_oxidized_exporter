@@ -19,10 +19,10 @@ Deploy [oxidized_exporter](https://github.com/momorientes/oxidized_exporter) to 
 
 ## Role variables
 
-| Name           | Default Value | Description                        |
-| -------------- | ------------- | -----------------------------------|
-| `oxidized_exporter_port` | 9120 | port to expose prometheus metrics |
-| `oxidized_web_url` | https://oxidized.example.net | web url of the oxidized application |
+| Name                     | Default Value                | Description                           |
+| ------------------------ | ---------------------------- | --------------------------------------|
+| `oxidized_exporter_port` | 9120                         | port to expose prometheus metrics     |
+| `oxidized_web_url`       | https://oxidized.example.net | web url of the oxidized application   |
 
 ## Examples
 
