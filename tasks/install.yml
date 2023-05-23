@@ -1,33 +1,40 @@
 ---
 - name: "Check for oxidized_exporter binary"
-  stat:
+  ansible.builtin.stat:
     path: '{{ oxidized_exporter_install_dir }}/oxidized-exporter'
   changed_when: false
   register: oxidized_exporter_install
 
-- when: not oxidized_exporter_install.stat.exists or oxidized_exporter_force_install|bool
+- name: "Install tasks"
+  when: not oxidized_exporter_install.stat.exists or oxidized_exporter_force_install|bool
   block:
+    - name: "REDHAT | Ensure EPEL is enabled"
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+      when: ansible_os_family == 'RedHat'
+
     - name: "Install requierements"
-      package:
+      ansible.builtin.package:
         name: '{{ oxidized_packages }}'
         state: present
 
 - name: "Copy oxidized-exporter script"
-  template:
+  ansible.builtin.template:
     src: 'oxidized-exporter.j2'
     dest: '{{ oxidized_exporter_install_dir }}/oxidized-exporter'
     mode: '0755'
   notify: "restart oxidized_exporter"
 
 - name: "Create systemd for oxidized_exporter"
-  template:
+  ansible.builtin.template:
     src: 'oxidized_exporter.service.j2'
     dest: '/etc/systemd/system/oxidized_exporter.service'
     mode: '0640'
   notify: "restart oxidized_exporter"
 
 - name: "Enable and Start oxidized_exporter.service"
-  service:
+  ansible.builtin.service:
     name: oxidized_exporter
     state: started
     enabled: true

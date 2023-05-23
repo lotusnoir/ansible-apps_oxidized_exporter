@@ -1,5 +1,5 @@
 ---
 - name: "restart oxidized_exporter"
-  service:
+  ansible.builtin.service:
     name: "oxidized_exporter"
     state: "restarted"
