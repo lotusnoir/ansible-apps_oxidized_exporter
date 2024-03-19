@@ -24,14 +24,14 @@
     src: 'oxidized-exporter.j2'
     dest: '{{ oxidized_exporter_install_dir }}/oxidized-exporter'
     mode: '0755'
-  notify: "restart oxidized_exporter"
+  notify: "Restart oxidized_exporter"
 
 - name: "Create systemd for oxidized_exporter"
   ansible.builtin.template:
     src: 'oxidized_exporter.service.j2'
     dest: '/etc/systemd/system/oxidized_exporter.service'
     mode: '0640'
-  notify: "restart oxidized_exporter"
+  notify: "Restart oxidized_exporter"
 
 - name: "Enable and Start oxidized_exporter.service"
   ansible.builtin.service:
